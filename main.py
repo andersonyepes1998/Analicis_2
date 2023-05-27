@@ -1,20 +1,26 @@
 from data.aparatamentos import apartamento1,apartamento2
 import pandas as pd
+from helpers.crearTablasHTML import crearTabla
 #CREAR EL DATAFRAME
 
 tabla1=pd.DataFrame(apartamento1,columns=['edades'])
 tabla2=pd.DataFrame(apartamento2,columns=['edades'])
 tabla3=pd.read_csv("./data/empleados.csv")
 
-print(tabla1)
-print(tabla2)
+#EFECTUANDO FILTROS CON PYTHON...
 
-estadisticasAPTO1=tabla1.describe()
-estadisticasAPTO2=tabla2.describe()
-estadisticasEmpleados=tabla3.describe()
+#1-NECESITO DEFINIR UNA CONDICON LOGICA...
 
-print(estadisticasAPTO1)
-print("\n")
-print(estadisticasAPTO2)
-print("\n")
-print(estadisticasEmpleados)
+empleadosJovenesAnalista1=tabla3.query('edad<28 and cargo=="analista1"')
+empleadosJovenesAnalista2=tabla3.query('salario<5000000 and cargo=="analista2"')
+empleadosAdespedir=tabla3.query('edad>=50')
+print(empleadosJovenesAnalista1)
+print(empleadosJovenesAnalista2)
+print(empleadosAdespedir)
+
+#2-CREAMOS LA TABLA HTMLCON EL DATAFRAME DEL FILTRO...
+
+crearTabla(empleadosJovenesAnalista1,'tablaJovenes')
+crearTabla(empleadosJovenesAnalista2,'tablaAnalisis2')
+crearTabla(empleadosAdespedir,'tablaJubilados')
+
